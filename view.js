@@ -4,6 +4,7 @@ const BoardView = function(gameModel)
     let boardRoot = document.querySelector(".board-root");
     let nextBtn = document.querySelector(".restart-round");
     let newGameBtn = document.querySelector(".restart-game");
+    let gameStatus = document.querySelector(".status");
 
     nextBtn.addEventListener("click", () =>
     {
@@ -51,6 +52,7 @@ const BoardView = function(gameModel)
     {
         setNextButtonActiive(false);
         setNewGameButtonActiive(false);
+        gameStatus.textContent = "";
 
         enableBoard();
         clearBoard();
@@ -67,7 +69,7 @@ const BoardView = function(gameModel)
             boardCells[i].textContent = currentSymbol;
             boardCells[i].classList.add(currentSymbol === 'X'? 'cross' : 'circle'); //not an ideal soution, might refactor later
             
-            game.playerInput(Math.floor(i / 3), i % 3);
+            let result = game.playerInput(Math.floor(i / 3), i % 3);
 
             if(game.isRoundComplete() || game.isGameComplete())
             {
@@ -78,6 +80,8 @@ const BoardView = function(gameModel)
                 setNewGameButtonActiive(isGameOver);
                 setNextButtonActiive(!isGameOver);
             }
+
+            gameStatus.textContent = result;
         });
     }
 

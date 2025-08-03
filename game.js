@@ -52,20 +52,25 @@ const Game = function(winningScore)
 
     const playerInput = function(row, column)
     {
+        let statusMessage;
+
         console.log(activePlayer.getNickname() + " plays " + row + ", " + column);
         let result = board.fillSpace(row, column);
 
         if(result.isVictory)
         {
             activePlayer.incrementScore();
-            console.log(activePlayer.getNickname() + " has won this round! " + 
-                "CURRENT " + getScoreMessage());
+            
+            statusMessage = activePlayer.getNickname() + " has won this round! " + 
+                "CURRENT " + getScoreMessage();
+            console.log(statusMessage);
 
             if(activePlayer.getScore() === winningScore)
             {
-                console.log(activePlayer.getNickname() + " has won the game!! " +
-                    "FINAL " + getScoreMessage()
-                )
+                statusMessage = activePlayer.getNickname() + " has won the game!! " +
+                    "FINAL " + getScoreMessage();
+
+                console.log(statusMessage);
 
                 isOver = true;
             }
@@ -74,14 +79,17 @@ const Game = function(winningScore)
         }
         else if (result.isTie)
         {
-            console.log("It's a tie! " + 
-                "CURRENT " + getScoreMessage()
-            );
+            statusMessage = "It's a tie! " + 
+                "CURRENT " + getScoreMessage();
+
+            console.log(statusMessage);
 
             shouldRestart = true;
         }
 
         activePlayer = activePlayer === player1? player2 : player1;
+
+        return statusMessage;
     }
 
     const restartGame = () =>

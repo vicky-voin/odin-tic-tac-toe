@@ -59,6 +59,14 @@ h1
 {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 16px;
     margin: 36px;
+}
+
+.game-ui > button
+{
+    width: max-content;
+    padding: 12px 24px;
+    font-size: 1.2em;
 }
