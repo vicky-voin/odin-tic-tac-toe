@@ -40,6 +40,11 @@ const Game = function(winningScore)
     const isRoundComplete = () => {return shouldRestart && !isOver;};
     const isGameComplete = () => {return shouldRestart && isOver;};
 
+    const getCurrentSymbol = () =>
+    {
+        return activePlayer === player1? board.getSymbols()[0] : board.getSymbols()[1];
+    }
+
     const getScoreMessage = () => 
     {
         return "score: " + player1.getScore() + " : " + player2.getScore();
@@ -95,7 +100,7 @@ const Game = function(winningScore)
         shouldRestart = false;
     }
 
-    return {playerInput, restartGame, restartRound, isRoundComplete, isGameComplete};
+    return {playerInput, getCurrentSymbol, restartGame, restartRound, isRoundComplete, isGameComplete};
 }
 
 const Gameboard = function() {
@@ -104,6 +109,10 @@ const Gameboard = function() {
     const circle = 'O';
     const empty = '_';
 
+    const getSymbols = () => {
+        return [cross, circle];
+    }
+    
     const toggleSymbol = () => currentSymbol = currentSymbol === cross? circle : cross;
 
     const fillSpace = (row, column) => {
@@ -170,7 +179,7 @@ const Gameboard = function() {
 
     clear();
     
-    return {fillSpace, clear};
+    return {fillSpace, clear, getSymbols};
 };
 
 // Test function to run all win condition tests using Game object
@@ -340,5 +349,4 @@ const testMultiRoundGame = () => {
 };
 
 // Run all tests
-runAllTests();
-
+//runAllTests();
